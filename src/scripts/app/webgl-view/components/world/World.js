@@ -76,8 +76,21 @@
 			this.lights = new LightManager();
 			this.scene.add(this.lights.treeGroup);
 
+			window.addEventListener('resize',this.resize.bind(this));
+
 		}
 
+		resize() {
+   		 // Update camera
+    	this.camera.aspect = window.innerWidth / window.innerHeight;
+    	this.camera.updateProjectionMatrix();
+
+    	//update camera
+    	this.renderer.setSize( window.innerWidth, window.innerHeight);
+
+    	return this;
+
+		}
 
 
 		launch() {
