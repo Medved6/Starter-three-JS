@@ -10,6 +10,7 @@
 	*/
 
 	import $ from 'jquery';
+	import Config from '@configs/WorldConfig';
 
 	const THREE = require('three');
 
@@ -21,9 +22,9 @@
 	class Renderer {
 
 
-		constructor(opt) {
+		constructor() {
 
-			this.params = opt;
+			this.config = Config.get('renderer');
 			this.create();
 
 			return this.instance;
@@ -34,8 +35,8 @@
 
 		create() {
 
-			this.instance = new THREE[this.params.build.type]( this.params.opt )
-			this.instance.setSize(this.params.build.size.w,this.params.build.size.h)
+			this.instance = new THREE[this.config.build.type]( this.config.opt )
+			this.instance.setSize(this.config.build.size.w,this.config.build.size.h)
 			this.instance.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1)
 
 		}

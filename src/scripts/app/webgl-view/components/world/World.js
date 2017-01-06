@@ -12,19 +12,17 @@
 
 	/*--------- IMPORTS ----------*/
 
-	import $ from 'jquery'
-	import Config from '@configs/WorldConfig'
-	import Ticker from '@frameworks/Ticker'
-	import Viewport from '@frameworks/Viewport'
+	import $ from 'jquery';
+	import Config from '@configs/WorldConfig';
+	import Ticker from '@frameworks/Ticker';
 
-
-	import Renderer from './Renderer'
-	import Camera from './Camera'
-	import LightManager from './LightManager'
+	import Renderer from './Renderer';
+	import Camera from './Camera';
+	import LightManager from './LightManager';
 
 
 
-	const THREE = require('three')
+	const THREE = require('three');
 
 	/*---------- CLASS -----------*/
 
@@ -45,7 +43,6 @@
 			if(World.instance) return World.instance;
 			else World.instance = this;
 
-			this.viewport = new Viewport();
 			this.config = Config.get();
 			this.ticker = new Ticker();
 
@@ -63,10 +60,10 @@
 			this.scene =  new THREE.Scene();
 
 			// Add renderer
-			this.renderer = new Renderer(this.config.renderer);
+			this.renderer = new Renderer();
 
 			// Add camera
-			this.camera = new Camera('main', this.config.camera);
+			this.camera = new Camera('main');
 			
 			// Add DOM container
 			this.container = this.config.container;
@@ -76,7 +73,10 @@
 			this.lights = new LightManager();
 			this.scene.add(this.lights.treeGroup);
 
+			// init events listener
 			window.addEventListener('resize',this.resize.bind(this));
+
+			return this;
 
 		}
 
@@ -85,7 +85,7 @@
     	this.camera.aspect = window.innerWidth / window.innerHeight;
     	this.camera.updateProjectionMatrix();
 
-    	//update camera
+    	//update renderer
     	this.renderer.setSize( window.innerWidth, window.innerHeight);
 
     	return this;
@@ -94,12 +94,14 @@
 
 
 		launch() {
+			// add render to request animation frame
 			this.ticker.tick('render',this.loop.bind(this))
 		}
 
 
 
 		loop() {
+			// basic webgl environment render
 			this.renderer.render(this.scene, this.camera);
 		}
 
