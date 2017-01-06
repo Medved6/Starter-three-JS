@@ -1,0 +1,16 @@
+
+
+{
+
+	"url": "./src/assets/models/",
+
+	"models" : [
+
+		{
+			"name" : "suzanne",
+			"type" : "object"
+		}
+	]
+
+
+}

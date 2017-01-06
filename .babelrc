@@ -1,0 +1,21 @@
+{
+	"passPerPreset": true,
+  "presets": [
+    "es2015",
+    "stage-2"
+  ],
+  
+  "plugins": [
+  	["transform-class-properties"],
+    ["module-alias", [
+		  { "src": "./src/scripts/app/webgl-view/components", "expose": "@components" },
+      { "src": "./src/scripts/app/webgl-view/components/world", "expose": "@world" },
+      { "src": "./src/scripts/app/webgl-view/utils", "expose": "@utils" },
+		  { "src": "./src/scripts/app/webgl-view/_configs", "expose": "@configs" },
+		  { "src": "./src/scripts/app", "expose": "@app" },
+		  { "src": "./src/scripts/frameworks", "expose": "@frameworks" },
+		]]
+  ]
+
+	
+}
