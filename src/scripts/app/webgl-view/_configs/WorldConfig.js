@@ -33,7 +33,9 @@
 
 
 		// DEFINE CAMERA SETTINGS
-		camera : {
+		camera : [
+		{
+			name : "main",
 			build : {
 				type: 'PerspectiveCamera',
 				fov : 60,
@@ -47,7 +49,8 @@
 				z : 10
 			},
 			target : new THREE.Vector3(0,0,0)
-		},
+		}
+		],
 
 
 

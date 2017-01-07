@@ -9,7 +9,8 @@
 	*
 	*/
 
-	import Config from '@configs/WorldConfig'
+	import Config from '@configs/WorldConfig';
+	import _ from "lodash";
 
 	const THREE = require('three');
 
@@ -22,13 +23,13 @@
 
 		static instance;
 
-		constructor(name) {
+		constructor() {
 
+			if( Camera.instance ) { return Camera.instance; }
+			else { Camera.instance = this; }
 
 			this.config = Config.get('camera');
-			this.name = name;
-
-			this.create();
+			this.cache = [];
 
 			return this.instance;
 		}
@@ -37,21 +38,41 @@
 
 
 
+		add(name) {
 
-		create() {
+			if(this.cache[name]){ return this.cache[name]; }
 
-			this.instance = new THREE[this.config.build.type](
-				this.config.build.fov,
-				this.config.build.ratio,
-				this.config.build.near,
-				this.config.build.far
+			const index = _.findIndex(this.config,{name:name});
+			if( index === -1) return false;
+
+			const camera = this.create(this.config[index]);
+
+			return camera;
+		}
+
+
+		create(params) {
+
+			let instance = new THREE[params.build.type](
+				params.build.fov,
+				params.build.ratio,
+				params.build.near,
+				params.build.far
 			);
 
-			this.instance.name = this.name;
-			this.instance.position.set(this.config.position.x,this.config.position.y,this.config.position.z)
-			this.instance.lookAt(this.config.target)
+			instance.name = params.name;
+			instance.position.set(params.position.x,params.position.y,params.position.z)
+			instance.lookAt(params.target);
+
+			this.cache[params.name] = instance;
+
+			return instance;
+		}
 
 
+		get(name) {
+			if(!this.cache[name]) { return false; }
+			else { return this.cache[name]; }
 		}
 
 

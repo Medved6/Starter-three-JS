@@ -63,7 +63,8 @@
 			this.renderer = new Renderer();
 
 			// Add camera
-			this.camera = new Camera('main');
+			const camera = new Camera();
+			this.mainCamera = camera.add("main");
 			
 			// Add DOM container
 			this.container = this.config.container;
@@ -82,8 +83,8 @@
 
 		resize() {
    		 // Update camera
-    	this.camera.aspect = window.innerWidth / window.innerHeight;
-    	this.camera.updateProjectionMatrix();
+    	this.mainCamera.aspect = window.innerWidth / window.innerHeight;
+    	this.mainCamera.updateProjectionMatrix();
 
     	//update renderer
     	this.renderer.setSize( window.innerWidth, window.innerHeight);
@@ -102,7 +103,7 @@
 
 		loop() {
 			// basic webgl environment render
-			this.renderer.render(this.scene, this.camera);
+			this.renderer.render(this.scene, this.mainCamera);
 		}
 
 
