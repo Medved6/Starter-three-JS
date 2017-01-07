@@ -36,21 +36,6 @@
 
 
 
-
-
-		add(name) {
-
-			if(this.cache[name]){ return this.cache[name]; }
-
-			const index = _.findIndex(this.config,{name:name});
-			if( index === -1) return false;
-
-			const camera = this.create(this.config[index]);
-
-			return camera;
-		}
-
-
 		create(params) {
 
 			let instance = new THREE[params.build.type](
@@ -68,6 +53,30 @@
 
 			return instance;
 		}
+
+
+
+
+		add(name) {
+
+			if(this.cache[name]){ return false; }
+
+			const index = _.findIndex(this.config,{name:name});
+			if( index === -1) return false;
+
+			const camera = this.create(this.config[index]);
+
+			return camera;
+		}
+
+
+		remove(name) {
+			if(this.cache[name]){ return false; }
+			else { delete this.cache[name]; }
+
+			return this;
+		}
+
 
 
 		get(name) {
