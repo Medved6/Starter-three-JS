@@ -22,9 +22,14 @@
 	
 
 
-	class LightManger {
+	class LightManager {
+
+		static instance;
 
 		constructor() {
+
+			if(LightManager.instance) { return LightManager.instance; }
+			else { LightManager.instance = this; }
 
 			this.config = Config.get('lights');
 			this.treeGroup = new THREE.Group();
@@ -41,10 +46,12 @@
 
 			_.map(this.config, (item, index) => {
 
-				if(!item.type || typeof item.type != 'string') return
+				if(!item.type || typeof item.type != 'string') {
+					throw new Error("unvalid light type");
+				}
 
-				const light = new THREE[item.type]()
-				light.name = item.name
+				const light = new THREE[item.type]();
+				light.name = item.name;
 				light.position.set(item.position.x,item.position.y,item.position.z)
 
 				_.map(item.params, (params,index) => {
@@ -66,7 +73,19 @@
 
 
 
+		get(name) {
+
+			const index = _.findIndex(this.treeGroup.children, {name: name})
+			if(index === -1) { throw new Error("unknown light"); }
+
+			return this.treeGroup.children[index];
+
+		}	
+
+
+
+
 	}
 
 
-	export default LightManger;
+	export default LightManager;

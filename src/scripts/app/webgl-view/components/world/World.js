@@ -65,7 +65,7 @@
 			// Add camera
 			const camera = new Camera();
 			this.mainCamera = camera.add("main");
-			
+
 			// Add DOM container
 			this.container = this.config.container;
 			this.container.append(this.renderer.domElement);
@@ -73,6 +73,9 @@
 			// Add lights
 			this.lights = new LightManager();
 			this.scene.add(this.lights.treeGroup);
+
+			this.lights.get("ma")
+
 
 			// init events listener
 			window.addEventListener('resize',this.resize.bind(this));

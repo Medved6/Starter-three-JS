@@ -62,7 +62,7 @@
 			if(this.cache[name]){ return false; }
 
 			const index = _.findIndex(this.config,{name:name});
-			if( index === -1) return false;
+			if( index === -1) { throw new Error("Unknown camera name"); }
 
 			const camera = this.create(this.config[index]);
 
@@ -71,7 +71,7 @@
 
 
 		remove(name) {
-			if(this.cache[name]){ return false; }
+			if(this.cache[name]){ throw new Error("Unkonwn camera"); }
 			else { delete this.cache[name]; }
 
 			return this;
@@ -80,7 +80,7 @@
 
 
 		get(name) {
-			if(!this.cache[name]) { return false; }
+			if(!this.cache[name]) { throw new Error("Unkonwn camera"); }
 			else { return this.cache[name]; }
 		}
 

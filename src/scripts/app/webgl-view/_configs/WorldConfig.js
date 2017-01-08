@@ -16,7 +16,7 @@
 	const HEIGHT = $(window).height();
 	const WIDTH  = $(window).width();
 
-	/*--------- CLASS ----------*/
+	/*--- ------ CLASS ----------*/
 
 
 
