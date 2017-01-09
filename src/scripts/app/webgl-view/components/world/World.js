@@ -37,7 +37,11 @@
 
 		static instance;
 
-	
+		
+		/**
+		 * Constructor
+		 * @return {World} World instance
+		 */
 		constructor() {
 
 			if(World.instance) return World.instance;
@@ -53,7 +57,10 @@
 		}
 
 
-
+		/**
+		 * Create World
+		 * @return {World} World instance
+		 */
 		create() {
 
 			// Add scene
@@ -74,9 +81,6 @@
 			this.lights = new LightManager();
 			this.scene.add(this.lights.treeGroup);
 
-			this.lights.get("ma")
-
-
 			// init events listener
 			window.addEventListener('resize',this.resize.bind(this));
 
@@ -84,29 +88,36 @@
 
 		}
 
+
+		/**	
+		 * Update camera & renderer canvas when resize event is triggered
+		 * @return {World} World instance
+		 */
 		resize() {
-   		 // Update camera
     	this.mainCamera.aspect = window.innerWidth / window.innerHeight;
     	this.mainCamera.updateProjectionMatrix();
-
-    	//update renderer
     	this.renderer.setSize( window.innerWidth, window.innerHeight);
-
     	return this;
-
 		}
 
 
+		/**
+		 * Launch world renderer
+		 * @return {World} World instance
+		 */
 		launch() {
-			// add render to request animation frame
-			this.ticker.tick('render',this.loop.bind(this))
+			this.ticker.tick('render',this.loop.bind(this));
+			return this;
 		}
 
 
-
+		/**
+		 * Renderer Canvas at each frame
+		 * @return {World} World instance
+		 */
 		loop() {
-			// basic webgl environment render
 			this.renderer.render(this.scene, this.mainCamera);
+			return this;
 		}
 
 

@@ -22,7 +22,21 @@
 	class Renderer {
 
 
+		/**
+		 * SINGLETON
+		 */
+		static instance;
+
+
+
+		/**
+		 * Constructor
+		 * @return {Object} all construc Renderer
+		 */
 		constructor() {
+
+			if(Renderer.instance) { return Renderer.instance; }
+			else { Renderer.instance = this; }
 
 			this.config = Config.get('renderer');
 			this.create();
@@ -32,24 +46,18 @@
 
 
 
-
+		/**
+		 * Create Three js renderer
+		 * @return {Renderer} Renderer instance
+		 */
 		create() {
 
 			this.instance = new THREE[this.config.build.type]( this.config.opt )
 			this.instance.setSize(this.config.build.size.w,this.config.build.size.h)
 			this.instance.setPixelRatio(window.devicePixelRatio ? window.devicePixelRatio : 1)
 
-		}
-
-
-
-		resize() {
-
-
-
-
-		}
-
+			return this;
+		}	
 
 	}
 

@@ -19,6 +19,6 @@
 
 	/*--------- CLASS ----------*/
 
+	let webglview;
 
-
-	$(window).ready(()=>{ new WebglView(); })
+	$(window).ready(()=>{ webglview = new WebglView(); })
